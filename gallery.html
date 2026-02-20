@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery | Happy Birthday, Ritu!</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="gallery-page">
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo">Ritu's Birthday 🎂</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="messages.html">Messages</a></li>
+            <li><a href="timeline.html">Our Story</a></li>
+            <li><a href="quiz.html">Quiz</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <h1>Picture Perfect Moments</h1>
+            <p>A collection of memories that make us smile.</p>
+        </section>
+
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="openLightbox('WhatsApp Image 2026-02-20 at 3.42.32 PM.jpeg', 'A beautiful Day in Your Life!')">
+                <img src="WhatsApp Image 2026-02-20 at 3.42.32 PM.jpeg" alt="Beach day with Ritu">
+            </div>
+            <div class="gallery-item" onclick="openLightbox('WhatsApp Image 2026-02-20 at 12.31.43 PM.jpeg', 'Visit The KhatndGiri.')">
+                <img src="WhatsApp Image 2026-02-20 at 12.31.43 PM.jpeg" alt="Milestone celebration">
+            </div>
+            <div class="gallery-item" onclick="openLightbox('Diiiiiii.jpeg', 'Take Photo With Cake.')">
+                <img src="Diiiiiii.jpeg" alt="Silly moments">
+            </div>
+            <div class="gallery-item" onclick="openLightbox('Didi.jpeg', 'Visit The KhatndGiri.')">
+                <img src="Didi.jpeg" alt="Adventure time">
+            </div>
+            <div class="gallery-item" onclick="openLightbox('WhatsApp Image 2026-02-20 at 3.42.30 PM.jpeg', 'Gifted For Your Birthday.')">
+                <img src="WhatsApp Image 2026-02-20 at 3.42.30 PM.jpeg" alt="Peaceful moments">
+            </div>
+            <div class="gallery-item" onclick="openLightbox('WhatsApp Image 2026-02-20 at 3.42.31 PM.jpeg', 'Take Photo Whit beautiful Cake.')">
+                <img src="WhatsApp Image 2026-02-20 at 3.42.31 PM.jpeg" alt="Laughing together">
+            </div>
+        </div>
+    </main>
+
+    <!-- The Lightbox -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close-lightbox">&times;</span>
+        <img id="lightbox-img" class="lightbox-content">
+        <div id="lightbox-caption" class="lightbox-caption"></div>
+    </div>
+
+    <footer>
+        <p>Made with endless love for you, Didi. <span class="heart">♥</span></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

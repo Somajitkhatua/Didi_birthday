@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Well Do You Know Didi? | Happy Birthday!</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #ff9a9e, #fecfef, #fecfef, #fad0c4, #ff9a9e);
+            background-size: 400% 400%;
+            animation: gradientSlide 15s ease infinite;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientSlide {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('WhatsApp Image 2026-02-20 at 12.31.45 PM.jpeg') center/cover;
+            opacity: 0.08;
+            z-index: -1;
+        }
+
+        /* Floating Hearts Background */
+        .hearts-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .heart-float {
+            position: absolute;
+            color: rgba(255, 182, 193, 0.3);
+            animation: floatUp 15s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.4;
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(255, 182, 193, 0.3);
+            padding: 15px 30px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff6b9d;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff6b9d;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #ff6b9d;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 100px;
+            padding: 40px 20px;
+            min-height: calc(100vh - 200px);
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            color: #fff;
+            margin-bottom: 15px;
+            text-shadow: 0 3px 10px rgba(255, 107, 157, 0.5);
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.95);
+            font-weight: 300;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* Quiz Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(255, 107, 157, 0.3);
+            animation: fadeInUp 1s ease;
+        }
+
+        .quiz-container {
+            position: relative;
+        }
+
+        /* Progress Bar */
+        .quiz-progress {
+            margin-bottom: 30px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #fce4ec;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b9d, #ff9a9e);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            box-shadow: 0 2px 10px rgba(255, 107, 157, 0.5);
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            color: #ff6b9d;
+            font-weight: 500;
+        }
+
+        /* Question Styles */
+        .quiz-question {
+            margin-bottom: 30px;
+            animation: slideIn 0.5s ease;
+        }
+
+        .quiz-question h2 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .question-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b9d, #ff9a9e);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        /* Options Styles */
+        .quiz-options {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .quiz-option {
+            background: #fff5f8;
+            border: 2px solid transparent;
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 157, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .quiz-option:hover::before {
+            left: 100%;
+        }
+
+        .quiz-option:hover {
+            transform: translateX(5px);
+            border-color: #ff6b9d;
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.2);
+        }
+
+        .quiz-option.selected {
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(255, 154, 158, 0.1));
+            border-color: #ff6b9d;
+        }
+
+        .quiz-option.correct {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.2));
+            border-color: #4CAF50;
+            animation: pulse 0.5s ease;
+        }
+
+        .quiz-option.incorrect {
+            background: linear-gradient(135deg, rgba(244, 67, 54, 0.1), rgba(244, 67, 54, 0.2));
+            border-color: #f44336;
+            animation: shake 0.5s ease;
+        }
+
+        .option-text {
+            font-size: 1.1rem;
+            color: #333;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Button Styles */
+        .cta-button {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff9a9e 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.4);
+            display: block;
+            margin: 0 auto;
+            font-weight: 600;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 107, 157, 0.6);
+        }
+
+        .cta-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Results Styles */
+        .quiz-results {
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+
+        .quiz-results h2 {
+            font-size: 2.5rem;
+            color: #ff6b9d;
+            margin-bottom: 20px;
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .result-score {
+            font-size: 4rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff6b9d, #ff9a9e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 20px 0;
+        }
+
+        .result-message {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .result-emoji {
+            font-size: 4rem;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.95) 0%, rgba(255, 154, 158, 0.95) 100%);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            box-shadow: 0 -5px 20px rgba(255, 107, 157, 0.3);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .heart {
+            display: inline-block;
+            color: #ff1744;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.3); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.3); }
+            70% { transform: scale(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 30px 20px;
+                margin: 0 15px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+                font-size: 0.9rem;
+            }
+            
+            .quiz-question h2 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body class="quiz-page">
+    <!-- Floating Hearts Background -->
+    <div class="hearts-container" id="heartsContainer"></div>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo">Didi's Birthday 🎂</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="messages.html">Messages</a></li>
+            <li><a href="timeline.html">Our Story</a></li>
+            <li><a href="quiz.html">Quiz</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="page-header">
+            <h1>The Ultimate Didi Quiz</h1>
+            <p>Test your knowledge! Let's see how well you know the birthday girl.</p>
+        </section>
+
+        <div class="container">
+            <div id="quiz-container" class="quiz-container">
+                <div class="quiz-progress">
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-text">
+                        Question <span id="current-question">1</span> of <span id="total-questions">10</span>
+                    </div>
+                </div>
+                
+                <div id="quiz-question" class="quiz-question"></div>
+                <div id="quiz-options" class="quiz-options"></div>
+                <button id="quiz-next" class="cta-button" disabled>Next Question</button>
+            </div>
+            
+            <div id="quiz-results" class="quiz-results" style="display: none;">
+                <h2>Quiz Complete!</h2>
+                <div class="result-emoji" id="result-emoji">🎉</div>
+                <div class="result-score" id="result-score">0/10</div>
+                <p class="result-message" id="result-message"></p>
+                <button class="cta-button" onclick="restartQuiz()">Try Again</button>
+                <button class="cta-button" style="margin-left: 10px;" onclick="location.href='index.html'">Back to Home</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Made with endless love for you, Didi. <span class="heart">♥</span></p>
+    </footer>
+
+    <script>
+        // Create floating hearts
+        function createFloatingHearts() {
+            const container = document.getElementById('heartsContainer');
+            const heartSymbols = ['♥', '💕', '💖', '💗', '💝'];
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart-float';
+                heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 15 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                container.appendChild(heart);
+            }
+        }
+
+        // Quiz Questions Database
+        const quizQuestions = [
+            {
+                question: "What is Didi's favorite color?",
+                options: ["Pink", "Blue", "Purple", "Red"],
+                correct: 0
+            },
+            {
+                question: "What is Didi's favorite food?",
+                options: ["Pizza", "Biryani", "Pasta", "Sushi"],
+                correct: 1
+            },
+            {
+                question: "What is Didi's dream travel destination?",
+                options: ["Paris", "Bali", "New York", "Dubai"],
+                correct: 0
+            },
+            {
+                question: "What is Didi's favorite season?",
+                options: ["Spring", "Summer", "Winter", "Autumn"],
+                correct: 1
+            },
+            {
+                question: "What is Didi's favorite movie genre?",
+                options: ["Romance", "Action", "Comedy", "Thriller"],
+                correct: 2
+            },
+            {
+                question: "What is Didi's favorite hobby?",
+                options: ["Reading", "Dancing", "Painting", "Cooking"],
+                correct: 1
+            },
+            {
+                question: "What is Didi's favorite animal?",
+                options: ["Dog", "Cat", "Rabbit", "Bird"],
+                correct: 0
+            },
+            {
+                question: "What is Didi's favorite flower?",
+                options: ["Rose", "Lily", "Tulip", "Sunflower"],
+                correct: 1
+            },
+            {
+                question: "What is Didi's favorite music genre?",
+                options: ["Pop", "Classical", "Rock", "Jazz"],
+                correct: 0
+            },
+            {
+                question: "What is Didi's biggest strength?",
+                options: ["Kindness", "Intelligence", "Creativity", "All of the above"],
+                correct: 3
+            }
+        ];
+
+        // Quiz State
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedOption = null;
+        let answeredQuestions = [];
+
+        // DOM Elements
+        const quizContainer = document.getElementById('quiz-container');
+        const quizResults = document.getElementById('quiz-results');
+        const questionElement = document.getElementById('quiz-question');
+        const optionsElement = document.getElementById('quiz-options');
+        const nextButton = document.getElementById('quiz-next');
+        const progressFill = document.getElementById('progress-fill');
+        const currentQuestionSpan = document.getElementById('current-question');
+        const totalQuestionsSpan = document.getElementById('total-questions');
+
+        // Initialize Quiz
+        function initQuiz() {
+            createFloatingHearts();
+            totalQuestionsSpan.textContent = quizQuestions.length;
+            loadQuestion();
+        }
+
+        // Load Current Question
+        function loadQuestion() {
+            const currentQuestion = quizQuestions[currentQuestionIndex];
+            
+            // Update progress
+            const progress = ((currentQuestionIndex) / quizQuestions.length) * 100;
+            progressFill.style.width = progress + '%';
+            currentQuestionSpan.textContent = currentQuestionIndex + 1;
+            
+            // Display question
+            questionElement.innerHTML = `
+                <span class="question-number">Question ${currentQuestionIndex + 1}</span>
+                <h2>${currentQuestion.question}</h2>
+            `;
+            
+            // Display options
+            optionsElement.innerHTML = '';
+            currentQuestion.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'quiz-option';
+                optionDiv.innerHTML = `<span class="option-text">${option}</span>`;
+                optionDiv.addEventListener('click', () => selectOption(index, optionDiv));
+                optionsElement.appendChild(optionDiv);
+            });
+            
+            // Reset state
+            selectedOption = null;
+            nextButton.disabled = true;
+            nextButton.textContent = currentQuestionIndex === quizQuestions.length - 1 ? 'See Results' : 'Next Question';
+        }
+
+        // Select Option
+        function selectOption(index, optionElement) {
+            // Remove previous selection
+            document.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selection to clicked option
+            optionElement.classList.add('selected');
+            selectedOption = index;
+            nextButton.disabled = false;
+        }
+
+        // Next Question
+        nextButton.addEventListener('click', () => {
+            if (selectedOption === null) return;
+            
+            // Check answer
+            const currentQuestion = quizQuestions[currentQuestionIndex];
+            const isCorrect = selectedOption === currentQuestion.correct;
+            
+            if (isCorrect) {
+                score++;
+            }
+            
+            // Show correct/incorrect feedback
+            const options = document.querySelectorAll('.quiz-option');
+            options[currentQuestion.correct].classList.add('correct');
+            if (!isCorrect) {
+                options[selectedOption].classList.add('incorrect');
+            }
+            
+            // Disable further selection
+            options.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+            
+            // Move to next question after delay
+            setTimeout(() => {
+                currentQuestionIndex++;
+                
+                if (currentQuestionIndex < quizQuestions.length) {
+                    loadQuestion();
+                } else {
+                    showResults();
+                }
+            }, 1500);
+        });
+
+        // Show Results
+        function showResults() {
+            quizContainer.style.display = 'none';
+            quizResults.style.display = 'block';
+            
+            // Update progress to 100%
+            progressFill.style.width = '100%';
+            
+            // Calculate percentage
+            const percentage = (score / quizQuestions.length) * 100;
+            
+            // Display score
+            document.getElementById('result-score').textContent = `${score}/${quizQuestions.length}`;
+            
+            // Set emoji and message based on score
+            let emoji, message;
+            if (percentage >= 90) {
+                emoji = '🏆';
+                message = "Outstanding! You know Didi perfectly! You're truly her best friend!";
+            } else if (percentage >= 70) {
+                emoji = '🌟';
+                message = "Great job! You know Didi very well! She's lucky to have you!";
+            } else if (percentage >= 50) {
+                emoji = '😊';
+                message = "Good effort! You know quite a bit about Didi. Keep learning more about her!";
+            } else {
+                emoji = '💝';
+                message = "It's the thought that counts! Didi appreciates you taking this quiz for her!";
+            }
+            
+            document.getElementById('result-emoji').textContent = emoji;
+            document.getElementById('result-message').textContent = message;
+        }
+
+        // Restart Quiz
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            selectedOption = null;
+            
+            quizContainer.style.display = 'block';
+            quizResults.style.display = 'none';
+            
+            loadQuestion();
+        }
+
+        // Start quiz when page loads
+        document.addEventListener('DOMContentLoaded', initQuiz);
+    </script>
+</body>
+</html>
